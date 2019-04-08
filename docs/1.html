@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<body>
+	<h1>发送get请求的ajax_基础语法
+
+	</h1>
+
+	<span>
+		1.创建异步对象
+		<br> 2.设置请求的url等参数
+		<br> 3.发送请求
+		<br> 4.注册事件
+		<br> 5.在注册的事件中 获取 返回的 内容 并修改页面的显示
+		<br>
+		<br>
+		<br>
+	</span>
+
+
+
+	<input type="button" value="发送get_ajax请求" id='btnAjax'>
+</body>
+
+</html>
+<script type="text/javascript">
+	// 绑定点击事件
+	document.querySelector('#btnAjax').onclick = function () {
+		// 发送ajax 请求 需要 五步
+
+		// 1.创建异步对象
+		var ajaxObj = new XMLHttpRequest();
+
+		// 2.设置请求的url等参数
+		// 参数1 请求的方法 参数2 请求的url
+		//如果是动态传递参数   ajaxObj.open('get','02.ajax.php? userName='+document.querySelector('input').value);
+		ajaxObj.open('get', '02.ajax.php');
+
+		// 3.发送请求
+		ajaxObj.send();
+
+		// 假设 有一个 接返回数据的 方法ajaxObj.get();
+
+
+		// 4.注册事件
+		// onreadystatechange  状态改变就会调用
+		// 如果要在 数据完美请求回来的时候 才调用 我们需要手动的 写一些判断的逻辑
+		ajaxObj.onreadystatechange = function () {
+			// 为了保证 数据 完整回来,我们一般会判断 两个值
+			if (ajaxObj.readyState == 4 && ajaxObj.status == 200) {
+				// 如果能够进到这个判断 说明 数据 完美的回来了,并且请求的页面是存在的
+				// 5.在注册的事件中 获取 返回的 内容 并修改页面的显示
+				console.log('数据完美的回来了');
+
+				// 数据是保存在 异步对象的 属性中
+				console.log(ajaxObj.responseText);
+
+				// 修改页面的显示
+				document.querySelector('h1').innerHTML = ajaxObj.responseText;
+			}
+
+
+			// //post方法传递数据步骤与注意事项
+			//           //1、创建异步对象
+			// 			var ajax=new XMLHttpRequest();
+			// 			//2.设置请求的url等参数
+			// 			ajax.open('post','2.php');
+
+			// 			//注意： 添加http表头，加以下代码 设置请求报文
+			// 			ajax.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			// 			//3发送请求
+			// 			ajax.send();//注意：post方法传送数据时，格式写在send中，与get不同，get是写在url后？+字符串eg、 send('name=jack'&age=98)
+			// 			//4、注册事件
+			// 			ajax.onreadystatechange=function(){
+			// 				//为了保证数据完整回来需要进行判断
+			// 				if(ajax.readyState==4&&ajax.state==200){
+			// 					console.log("页面完整回来了");
+
+			// 					//5、获取返回的数据并修改页面
+			// 					console.log(ajax.responseText);
+			// 					document.querySelector('').innerHTML=ajax.responseText;
+
+			// 				}
+			// 		}	
+
+
+
+		}
+
+	}
+</script>
